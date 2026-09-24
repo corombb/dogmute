@@ -15,7 +15,7 @@ The muzzle flies in and off with the same timing and easing as Discord's own mic
 
 1. In Discord, open **Settings → Vencord → Themes → Online Themes**.
 2. Paste the raw link to the theme file:
-   `[https://raw.githubusercontent.com/<your-user>/<your-repo>/main/MuzzleMic.theme.css](https://raw.githubusercontent.com/corombb/dogmute/refs/heads/main/MuzzleMic.theme.css)`
+   `https://raw.githubusercontent.com/corombb/dogmute/refs/heads/main/MuzzleMic.theme.css`
 3. Make sure the theme is enabled.
 
 **Local file**
