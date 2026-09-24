@@ -1,0 +1,103 @@
+/**
+ * @name Muzzle Mic
+ * @author Corom
+ * @description Replaces the microphone mute button with a dog. Muting puts a muzzle on it; unmuting takes it off. Timing follows Discord's own mic animation.
+ * @version 1.0.0
+ */
+
+/* ------------------------------------------------------------------ *
+ *  Settings                                                           *
+ * ------------------------------------------------------------------ */
+:root {
+  /* 1 = Discord's speed, 2 = half speed, 0.5 = double speed */
+  --muzzle-mic-speed: 1;
+
+  /* Where the muzzle flies in from / off to, as a share of the icon size.
+     Top right: 45% -40%   The front: 60% 0%   Above: 0% -60%   Fade only: 0% 0% */
+  --muzzle-mic-from-x: 45%;
+  --muzzle-mic-from-y: -40%;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Target: the mic toggle (a switch labelled "Mute" in both states;   *
+ *  aria-checked="true" means muted). Non-English clients: replace     *
+ *  "Mute" below with the label your client uses for the mic button.  *
+ * ------------------------------------------------------------------ */
+button[role="switch"][aria-label="Mute"] [class*="lottieIcon"] {
+  position: relative;
+}
+
+/* Hide Discord's own mic drawing; it keeps running underneath, unseen. */
+button[role="switch"][aria-label="Mute"] [class*="lottieIcon"] > svg {
+  opacity: 0;
+}
+
+/* Both layers take Discord's own icon color: grey normally, red when muted. */
+button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::before,
+button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--__lottieIconColor, currentColor);
+  mask-repeat: no-repeat;
+  mask-position: 0 0;
+}
+
+/* Layer 1: the dog (head + snout). The snout is a second mask layer that
+   is hidden while the muzzle is on. */
+button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128' fill='none' stroke='%23000' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'%3E%3CclipPath id='c'%3E%3Crect width='128' height='120.5'/%3E%3C/clipPath%3E%3Cpath d='M42 51V70Q42 92 22 92H20Q9.5 92 9.5 80V32Q9.5 13 28 13H60Q72 13 80 30'/%3E%3Cpath d='M14 93L6 114'/%3E%3Cpath d='M79.15 77L63 126' stroke-linecap='butt' clip-path='url%28%23c%29'/%3E%3Cpath d='M57 77.5H90'/%3E%3Ccircle cx='62' cy='35' r='4' fill='%23000' stroke='none'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128' fill='none' stroke='%23000' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M79 31L105 34.5Q121 37 121 52V68Q121 77.5 112 77.5L57 77.5'/%3E%3Crect x='108' y='28' width='20' height='17' rx='8' fill='%23000' stroke='none'/%3E%3Cpath d='M121 61Q106 62 96 58'/%3E%3C/svg%3E");
+  mask-size: 100% 100%, 100% 100%;
+}
+
+/* Layer 2: the muzzle. */
+button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::after {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128' fill='none' stroke='%23000' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M77.5 35L105 38Q121 40 121 55V70Q121 77.5 113 77.5H77.5Z'/%3E%3Cpath d='M99 42V74M77.5 58H121'/%3E%3C/svg%3E");
+  mask-size: 100% 100%;
+  opacity: 0;
+  transform: translate(var(--muzzle-mic-from-x), var(--muzzle-mic-from-y));
+}
+
+/* ------------------------------------------------------------------ *
+ *  Motion. Transitions instead of keyframe animations, so nothing     *
+ *  plays when Discord starts up; only a real mute/unmute animates.    *
+ *  Times are Discord's frames at 60fps (1 frame = 16.67ms).          *
+ * ------------------------------------------------------------------ */
+
+/* Unmuted: snout back at frame 5; muzzle flicks away frames 2-12, fading out frames 8-12. */
+button[role="switch"][aria-label="Mute"][aria-checked="false"] [class*="lottieIcon"]::before {
+  transition: mask-size 0s linear calc(83ms * var(--muzzle-mic-speed));
+}
+button[role="switch"][aria-label="Mute"][aria-checked="false"] [class*="lottieIcon"]::after {
+  transition:
+    transform calc(167ms * var(--muzzle-mic-speed)) cubic-bezier(.55, 0, 1, .45) calc(33ms * var(--muzzle-mic-speed)),
+    opacity calc(67ms * var(--muzzle-mic-speed)) linear calc(133ms * var(--muzzle-mic-speed));
+}
+
+/* Muted: muzzle flies in frames 1-22 (fast, then soft landing), fading in frames 1-8;
+   snout hides at frame 7, once the muzzle covers it. */
+button[role="switch"][aria-label="Mute"][aria-checked="true"] [class*="lottieIcon"]::before {
+  mask-size: 100% 100%, 0 0;
+  transition: mask-size 0s linear calc(117ms * var(--muzzle-mic-speed));
+}
+button[role="switch"][aria-label="Mute"][aria-checked="true"] [class*="lottieIcon"]::after {
+  opacity: 1;
+  transform: none;
+  transition:
+    transform calc(350ms * var(--muzzle-mic-speed)) cubic-bezier(.167, .167, 0, 1) calc(17ms * var(--muzzle-mic-speed)),
+    opacity calc(117ms * var(--muzzle-mic-speed)) linear calc(17ms * var(--muzzle-mic-speed));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::before,
+  button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::after {
+    transition: none !important;
+  }
+}
+
+/* Discord's in-app "Reduced Motion" setting */
+html.reduce-motion button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::before,
+html.reduce-motion button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::after {
+  transition: none !important;
+}
