@@ -1,5 +1,7 @@
 # Muzzle Mic
 
+## vibe coded with Claude
+
 A Vencord / Vesktop theme that replaces the microphone mute button with a dog. Muting puts a muzzle on it. Unmuting takes it off.
 
 <p>
