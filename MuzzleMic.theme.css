@@ -1,8 +1,8 @@
 /**
  * @name Muzzle Mic
- * @author corombb @ Claude Opus
+ * @author Corom
  * @description Replaces the microphone mute button with a dog. Muting puts a muzzle on it; unmuting takes it off. Timing follows Discord's own mic animation.
- * @version 1.0.0
+ * @version 1.2.0
  */
 
 /* ------------------------------------------------------------------ *
@@ -47,13 +47,13 @@ button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::after {
 /* Layer 1: the dog (head + snout). The snout is a second mask layer that
    is hidden while the muzzle is on. */
 button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::before {
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128' fill='none' stroke='%23000' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'%3E%3CclipPath id='c'%3E%3Crect width='128' height='120.5'/%3E%3C/clipPath%3E%3Cpath d='M42 51V70Q42 92 22 92H20Q9.5 92 9.5 80V32Q9.5 13 28 13H60Q72 13 80 30'/%3E%3Cpath d='M14 93L6 114'/%3E%3Cpath d='M79.15 77L63 126' stroke-linecap='butt' clip-path='url%28%23c%29'/%3E%3Cpath d='M57 77.5H90'/%3E%3Ccircle cx='62' cy='35' r='4' fill='%23000' stroke='none'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128' fill='none' stroke='%23000' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M79 31L105 34.5Q121 37 121 52V68Q121 77.5 112 77.5L57 77.5'/%3E%3Crect x='108' y='28' width='20' height='17' rx='8' fill='%23000' stroke='none'/%3E%3Cpath d='M121 61Q106 62 96 58'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75.590553 75.590552' fill='none' stroke='%23000' stroke-width='6.88805' stroke-linecap='round' stroke-linejoin='bevel'%3E%3Cpath d='M 24.705391,29.91236 C 25.012383999999997,39.70015 27.502446,52.143566 14.692390999999999,54.242185 C 6.9077178,53.659267 6.1624874,50.578478 5.4698942,47.479016 C 4.3944735,38.972852 3.9752899,30.582892 5.0307287,22.358689 C 6.7948992,8.6119082 13.157801,7.4844004 18.644895,7.5148625 L 34.464782,7.602700499999999 C 42.735220999999996,7.648635499999999 45.15603,13.081049 48.596056,19.811526999999998'/%3E%3Cpath d='M 48.003608,47.07806599999999 C 41.247076,53.61068999999999 40.198667,62.92858799999999 38.143890999999996,70.930512 L 38.143890999999996,70.75484599999999'/%3E%3Cpath d='M 47.599912,46.802983000000005 C 40.507676000000004,47.145419000000004 38.489398,46.50315500000001 33.999277000000006,45.250297'/%3E%3Cpath d='M 10.274203,53.479545 L 3.4423731,66.956881'/%3E%3Cellipse cx='36.597782' cy='20.952681' rx='0.75838566' ry='1.281706' fill='%23000' stroke-width='2.99084' stroke-linecap='butt'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75.590553 75.590552' fill='none' stroke='%23000' stroke-width='6.88805' stroke-linecap='round' stroke-linejoin='bevel'%3E%3Cpath d='M 48.596056,19.811526999999998 L 64.581714,23.061356999999997 C 68.186896,23.774133 69.77882500000001,24.768053 71.081383,26.926024999999996 C 72.037755,28.510464999999996 74.177245,43.152316 67.869758,44.48020799999999 C 59.201582,46.30509499999999 54.354258,45.06893399999999 48.003608,47.07806599999999'/%3E%3C/svg%3E");
   mask-size: 100% 100%, 100% 100%;
 }
 
 /* Layer 2: the muzzle. */
 button[role="switch"][aria-label="Mute"] [class*="lottieIcon"]::after {
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128' fill='none' stroke='%23000' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M77.5 35L105 38Q121 40 121 55V70Q121 77.5 113 77.5H77.5Z'/%3E%3Cpath d='M99 42V74M77.5 58H121'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75.590553 75.590552' fill='none' stroke='%23000' stroke-width='6.88805' stroke-linecap='round' stroke-linejoin='bevel'%3E%3Cpath d='M 48.596056,19.811526999999998 L 64.581714,23.061356999999997 C 68.186896,23.774133 69.77882500000001,24.768053 71.081383,26.926024999999996 C 72.037755,28.510464999999996 74.177245,43.152316 67.869758,44.48020799999999 C 59.201582,46.30509499999999 54.354258,45.06893399999999 48.003608,47.07806599999999'/%3E%3Cpath d='M 48.842975,19.755158 C 47.463846000000004,20.215999 45.87427,21.80809 45.737604000000005,23.357390000000002 C 45.43542600000001,26.783021 45.595560000000006,30.384824000000002 45.514617,33.965723000000004 C 45.415287,38.360078 46.115302,42.739839 47.599912,46.802983000000005'/%3E%3Cpath d='M 58.65597,22.425786 L 58.65597,45.032925'/%3E%3Cpath d='M 45.551274,34.660967 L 71.822762,34.288319'/%3E%3C/svg%3E");
   mask-size: 100% 100%;
   opacity: 0;
   transform: translate(var(--muzzle-mic-from-x), var(--muzzle-mic-from-y));
