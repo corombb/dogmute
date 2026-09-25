@@ -26,6 +26,10 @@ The muzzle flies in and off with the same timing and easing as Discord's own mic
 2. Drop `MuzzleMic.theme.css` into that folder.
 3. Tick **Muzzle Mic** in the list.
 
+## Add-on: voice channel list
+
+`MuzzleMicVoiceList.theme.css` swaps the small mute icons next to names in voice channels for the muzzled dog. It's grey when someone muted themselves and red when a moderator server-muted them. Deafen icons are left alone. Install it the same way as the main theme. It works on its own or alongside it.
+
 ## Settings
 
 Edit the `:root` block at the top of the file (or override it in QuickCSS):
