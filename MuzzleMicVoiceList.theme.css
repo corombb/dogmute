@@ -1,0 +1,30 @@
+/**
+ * @name Muzzle Mic: Voice List
+ * @author Corom
+ * @description Add-on for Muzzle Mic. Swaps the small mute icons in voice channel member lists for the muzzled dog: grey when a user muted themselves, red when a moderator server-muted them.
+ * @version 1.0.0
+ */
+
+/*
+ * Which icons this matches (both sit in the icon group of a voice channel row):
+ *   Self-muted:   Discord's slashed-mic icon. Matched by a piece of its drawing
+ *                 ("M15.36 4.52"), so the slashed-headphones deafen icon is left alone.
+ *   Server-muted: the icon with the "iconServer" class whose drawing is a mic
+ *                 ("M12 2c.33"), so server-deafen is left alone.
+ * Colors come from Discord: the icon's own grey or red.
+ */
+[class*="voiceUser"] [class*="iconGroup"] > svg:is(
+  :has(> path[d*="M15.36 4.52"]),
+  [class*="iconServer"]:has(> path[d^="M12 2c.33"])
+) {
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75.590553 75.590552' fill='none' stroke='%23000' stroke-width='6.88805' stroke-linecap='round' stroke-linejoin='bevel'%3E%3Cpath d='M 24.705391,29.91236 C 25.012383999999997,39.70015 27.502446,52.143566 14.692390999999999,54.242185 C 6.9077178,53.659267 6.1624874,50.578478 5.4698942,47.479016 C 4.3944735,38.972852 3.9752899,30.582892 5.0307287,22.358689 C 6.7948992,8.6119082 13.157801,7.4844004 18.644895,7.5148625 L 34.464782,7.602700499999999 C 42.735220999999996,7.648635499999999 45.15603,13.081049 48.596056,19.811526999999998'/%3E%3Cpath d='M 48.003608,47.07806599999999 C 41.247076,53.61068999999999 40.198667,62.92858799999999 38.143890999999996,70.930512 L 38.143890999999996,70.75484599999999'/%3E%3Cpath d='M 47.599912,46.802983000000005 C 40.507676000000004,47.145419000000004 38.489398,46.50315500000001 33.999277000000006,45.250297'/%3E%3Cpath d='M 10.274203,53.479545 L 3.4423731,66.956881'/%3E%3Cpath d='M 48.596056,19.811526999999998 L 64.581714,23.061356999999997 C 68.186896,23.774133 69.77882500000001,24.768053 71.081383,26.926024999999996 C 72.037755,28.510464999999996 74.177245,43.152316 67.869758,44.48020799999999 C 59.201582,46.30509499999999 54.354258,45.06893399999999 48.003608,47.07806599999999'/%3E%3Cpath d='M 48.842975,19.755158 C 47.463846000000004,20.215999 45.87427,21.80809 45.737604000000005,23.357390000000002 C 45.43542600000001,26.783021 45.595560000000006,30.384824000000002 45.514617,33.965723000000004 C 45.415287,38.360078 46.115302,42.739839 47.599912,46.802983000000005'/%3E%3Cpath d='M 58.65597,22.425786 L 58.65597,45.032925'/%3E%3Cpath d='M 45.551274,34.660967 L 71.822762,34.288319'/%3E%3Cellipse cx='36.597782' cy='20.952681' rx='0.75838566' ry='1.281706' fill='%23000' stroke-width='2.99084' stroke-linecap='butt'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Hide Discord's own drawing inside those icons. */
+[class*="voiceUser"] [class*="iconGroup"] > svg:is(
+  :has(> path[d*="M15.36 4.52"]),
+  [class*="iconServer"]:has(> path[d^="M12 2c.33"])
+) > * {
+  visibility: hidden;
+}
